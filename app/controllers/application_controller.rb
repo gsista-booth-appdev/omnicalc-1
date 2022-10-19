@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   #Calculate Square Root of a Number
   def calculate_square_root
-    @root_num = params.fetch("user_number").to_i
+    @root_num = params.fetch("user_number").to_f
 
     @square_root = @root_num ** (0.5)
 
@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
 
   #Payment Calculation given APR, Number of years, and Principal
   def calculate_monthly_payment
-    @apr = params.fetch("user_apr").to_f / 100
-    @rate = params.fetch("user_apr").to_f / 12
+    @apr = params.fetch("user_apr").to_f
+    @rate = (params.fetch("user_apr").to_f) / 100 / 12
     @no_of_years = params.fetch("user_years").to_f
     @no_of_periods = params.fetch("user_years").to_f * 12
     @principal = params.fetch("user_pv").to_f
