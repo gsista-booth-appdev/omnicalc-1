@@ -35,8 +35,18 @@ class ApplicationController < ActionController::Base
 
   #Payment Calculation given APR, Number of years, and Principal
   def calculate_monthly_payment
-  
-    render({:template => "calculation_templates/payment_results.html.erb"})
+    @apr = params.fetch("user_apr").to_f / 100
+    @rate = params.fetch("user_apr").to_f / 12
+    @no_of_years = params.fetch("user_years").to_f
+    @no_of_periods = params.fetch("user_years").to_f * 12
+    @principal = params.fetch("user_pv").to_f
+
+    @numerator = @rate * @principal
+    @denominator = (1 - ((1 + @rate) ** (-@no_of_periods)))
+
+    @payment = @numerator / @denominator
+
+    render({ :template => "calculation_templates/payment_results.html.erb" })
   end
 
   # Random Number Form
