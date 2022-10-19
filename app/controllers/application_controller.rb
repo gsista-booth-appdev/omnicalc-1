@@ -21,7 +21,22 @@ class ApplicationController < ActionController::Base
 
   #Calculate Square Root of a Number
   def calculate_square_root
-    render({ :template => "calculation_templates/calculate_square" })
+    @root_num = params.fetch("user_number").to_i
+
+    @square_root = @root_num ** (0.5)
+
+    render({ :template => "calculation_templates/square_root_results.html.erb" })
+  end
+
+  #Payment Calculator Form
+  def payment_form
+    render({ :template => "calculation_templates/payment_form.html.erb" })
+  end
+
+  #Payment Calculation given APR, Number of years, and Principal
+  def calculate_monthly_payment
+  
+    render({:template => "calculation_templates/payment_results.html.erb"})
   end
 
   # Random Number Form
